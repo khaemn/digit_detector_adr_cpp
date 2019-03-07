@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+    </qresource>
+    <qresource prefix="/assets:">
+        <file>android-sources/assets/dense.json</file>
+        <file>android-sources/assets/mnist.json</file>
+        <file>android-sources/assets/one.png</file>
+        <file>android-sources/assets/three.png</file>
+        <file>android-sources/assets/two.png</file>
+    </qresource>
+</RCC>
