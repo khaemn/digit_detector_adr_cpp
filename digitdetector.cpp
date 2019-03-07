@@ -16,14 +16,13 @@ DigitDetector::DigitDetector(QObject *parent) : QObject(parent)
 
 void DigitDetector::init()
 {
-     QString path_prefix;
  #ifdef ANDROID
-     path_prefix = "assets:/jsons/";
+     m_res_path_prefix = "assets:/jsons/";
  #else
-     path_prefix = ":/assets:/android-sources/assets/";
+     m_res_path_prefix = ":/assets:/android-sources/assets/";
  #endif
 
-     QString model_path = path_prefix.append("mnist.json");
+     QString model_path = m_res_path_prefix + "mnist.json";
      QFile model_file(model_path);
      qCritical() << "Opening QFile with model path: " << model_file.open(QFile::ReadOnly);
      QTextStream qstream(&model_file);
@@ -48,13 +47,13 @@ void DigitDetector::init()
 
 void DigitDetector::test_recognizing(const QString &file)
 {
-    using namespace cv;
-
-    qCritical() << "Test recognition. Reading the file " << file;
-    QImage image(file);
-    cv::Mat mat(image.height(), image.width(), CV_8UC4, image.bits());
-    //Mat image = imread("/home/vova/Free/qml-adr-test/android-sources/assets/three.png");
-    //Mat image = imread(":/assets:/android-sources/assets/three.png");
+    QString path = m_res_path_prefix + file;
+    qCritical() << "Test recognition. Reading the file " << path;
+    QImage image(path);
+    cv::Mat mat(image.height(), image.width(), CV_8UC4
+//                const_cast<uchar*>(image.bits()),
+//                static_cast<size_t>(image.bytesPerLine())
+                );
 
     qCritical() << "Converting to FDeep tensor...";
     auto input = as_native_tensor(mat);

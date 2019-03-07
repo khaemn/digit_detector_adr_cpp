@@ -1,17 +1,5 @@
-QT += quick multimedia gui
-CONFIG += c++14 opencv
-
-android {
-    ANDROID_EXTRA_LIBS += /media/vova/Auxiliary/Android/crystax-ndk-10.3.2/sources/crystax/libs/armeabi-v7a/libcrystax.so
-    LIBS += -L"/media/vova/Auxiliary/Android/crystax-ndk-10.3.2/sources/crystax/libs/armeabi-v7a/" \
-    -lcrystax
-    # Additional import path used to resolve QML modules in Qt Creator's code model
-    # QML_IMPORT_PATH = /media/vova/Auxiliary/Qt5.11.0/clang-adr/qml
-    DEFINES += EIGEN_MAX_CPP_VER=11
-    DEFINES += ANDROID
-}
-
-# QMAKE_CXXFLAGS += -Wno-error=unused-local-typedefs # does not help
+QT += quick multimedia
+CONFIG += c++14
 
 # The following define makes your compiler emit warnings if you use
 # any feature of Qt which as been marked deprecated (the exact warnings
@@ -40,15 +28,21 @@ linux:!android {
 }
 
 android {
+    ANDROID_EXTRA_LIBS += /media/vova/Auxiliary/Android/crystax-ndk-10.3.2/sources/crystax/libs/armeabi-v7a/libcrystax.so
+    LIBS += -L"/media/vova/Auxiliary/Android/crystax-ndk-10.3.2/sources/crystax/libs/armeabi-v7a/" \
+    -lcrystax
+    # Additional import path used to resolve QML modules in Qt Creator's code model
+    # QML_IMPORT_PATH = /media/vova/Auxiliary/Qt5.11.0/clang-adr/qml
+    DEFINES += EIGEN_MAX_CPP_VER=11
+    DEFINES += ANDROID
+
     INCLUDEPATH += $${OPENCV_PATH}/sdk/native/jni/include/
     OPENCV_PATH = /media/vova/Auxiliary/Downloads/OpenCV-android-sdk
-    ANDROID_PACKAGE_SOURCE_DIR=$$_PRO_FILE_PWD_/android
+    ANDROID_PACKAGE_SOURCE_DIR=$$_PRO_FILE_PWD_/android-sources
 
     # Change the last part (armeabi-v7a) according to your build
     OPENCV3RDPARTYLIBS = $$OPENCV_PATH/sdk/native/3rdparty/libs/armeabi-v7a
     OPENCVNATIVELIBS = $$OPENCV_PATH/sdk/native/libs/armeabi-v7a
-
-    #INCLUDEPATH += /usr/local/include/
 
     LIBS += $$OPENCV3RDPARTYLIBS/liblibtiff.a \
         $$OPENCV3RDPARTYLIBS/liblibjpeg.a \
@@ -75,13 +69,13 @@ android {
         $$OPENCVNATIVELIBS/libopencv_java.so \
         $$OPENCVNATIVELIBS/libopencv_info.so
 
-    jsons.files = android-sources/assets/mnist.json \
-         android-sources/assets/dense.json \
-         android-sources/assets/one.png \
-         android-sources/assets/two.png \
-         android-sources/assets/three.png
-    jsons.path = /assets/jsons/
-    INSTALLS += jsons
+#    jsons.files = android-sources/assets/mnist.json \
+#         android-sources/assets/dense.json \
+#         android-sources/assets/one.png \
+#         android-sources/assets/two.png \
+#         android-sources/assets/three.png
+#    jsons.path = /assets/jsons/
+#    INSTALLS += jsons
 }
 
 

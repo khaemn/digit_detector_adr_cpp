@@ -44,6 +44,8 @@ private:
 
 private:
     QString m_digit;
+    QString m_res_path_prefix;
+
     std::unique_ptr<fdeep::model> m_model;
 };
 
